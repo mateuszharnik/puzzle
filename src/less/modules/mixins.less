@@ -1,0 +1,64 @@
+.sizes(@width: auto, @height: auto) {
+  width: @width;
+  height: @height;
+}
+
+.position(@top: 0rem, @left: 0rem) {
+  top: @top;
+  left: @left;
+}
+
+.loop(@i: 0, @through: 1, @x: 0, @y:0, @top: 0rem, @left: 0rem)
+  when
+  (@i <= @through) {
+  & when (@i < 10) {
+    &.puzzle-0@{i} {
+      .position(@top, @left);
+    }
+
+    &.img-0@{i} {
+      & when (@i = 1) {
+        border-top-left-radius: 3rem;
+      }
+      & when (@i = 4) {
+        border-top-right-radius: 3rem;
+      }
+      background-repeat: no-repeat;
+      background-position: (@x * @size) (@y * @size);
+      z-index: @z-index-2;
+    }
+  }
+
+  & when (@i >= 10) {
+    &.puzzle-@{i} {
+      .position(@top, @left);
+    }
+
+    &.img-@{i} {
+      background-repeat: no-repeat;
+      background-position: (@x * @size) (@y * @size);
+      z-index: @z-index-2;
+      & when (@i = 13) {
+        border-bottom-left-radius: 3rem;
+      }
+      & when (@i = 16) {
+        border-bottom-right-radius: 3rem;
+      }
+    }
+  }
+
+  @new-left: @left + @size + @gap;
+  @new-x: @x - 1;
+
+  & when (@i = 4), (@i = 8), (@i = 12) {
+    @new-x: 0;
+    @new-y: @y - 1;
+    @new-left: 0rem;
+    @new-top: @top + @size + @gap;
+    .loop(@i: @i + 1, @through, @new-x, @new-y, @new-top, @new-left);
+  }
+
+  & when (not(@i = 4) and not(@i = 8) and not(@i = 12)) {
+    .loop(@i: @i + 1, @through, @new-x, @y, @top, @new-left);
+  }
+}

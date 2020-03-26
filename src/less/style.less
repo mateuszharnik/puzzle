@@ -1,0 +1,171 @@
+@import "modules/reset";
+@import "modules/variables";
+@import "modules/mixins";
+@import "modules/basic";
+
+body > .big-img-error {
+  position: fixed;
+  .position();
+  width: 100%;
+  padding: 0.4rem;
+  background: lighten(@color-warning, 30%);
+  color: @color-white;
+  font-size: 1.2rem;
+  text-align: center;
+  border-bottom: 0.2rem solid @color-warning;
+  z-index: @z-index-9;
+}
+
+.game-wrapper {
+  width: (4 * (@size + @gap) - @gap);
+  margin: 0 auto;
+  background: @color-body-text;
+  border-radius: 1rem;
+  border: 0.2rem solid @color-black;
+  transition: @transition-primary;
+  box-sizing: content-box;
+
+  &.is-focused {
+    box-shadow: 0rem 0rem 1rem 0.4rem fadeout(@color-primary, 0.6);
+    transition: @transition-primary;
+
+    > .puzzle-attempt-counter {
+      transition: @transition-primary;
+      color: @color-primary;
+    }
+
+    > .puzzle-bottom-panel > .puzzle-record {
+      color: @color-primary;
+      transition: @transition-primary;
+    }
+  }
+
+  > .puzzle-attempt-counter {
+    font-size: 1.5rem;
+    line-height: 3.4rem;
+    color: @color-body-background;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: @gap;
+    border-bottom: 0.2rem solid @color-black;
+    transition: @transition-primary;
+  }
+
+  > .puzzle-game {
+    .sizes((4 * (@size + @gap) - @gap), (4 * (@size + @gap) - @gap));
+    position: relative;
+    box-sizing: content-box;
+    transition: @transition-primary;
+    background: @color-black;
+    outline: none;
+
+    > .puzzle {
+      .sizes(@size, @size);
+      position: absolute;
+      transition: @transition-primary;
+
+      .loop(1, 16);
+
+      &.hide {
+        z-index: @z-index-1;
+        opacity: 0;
+      }
+    }
+  }
+
+  > .puzzle-bottom-panel {
+    color: @color-body-background;
+    position: relative;
+    padding: 0rem 1rem;
+    border-top: 0.2rem solid @color-black;
+
+    > .puzzle-record {
+      font-size: 1.4rem;
+      line-height: 3.4rem;
+      transition: @transition-primary;
+      user-select: none;
+    }
+
+    > .puzzle-preview {
+      position: absolute;
+      top: 0rem;
+      right: 1rem;
+      line-height: 3.4rem;
+      width: 3rem;
+      text-align: center;
+      cursor: pointer;
+      background: none;
+      border: 0;
+      color: @color-body-background;
+      font-size: 2rem;
+      transition: @transition-primary;
+      outline: none;
+
+      &:hover,
+      &:focus {
+        color: @color-primary;
+        transition: @transition-primary;
+      }
+    }
+
+    > .reset-game {
+      margin: 0.5rem auto;
+      outline: none;
+      display: block;
+      background: @color-body-background;
+      color: @color-body-text;
+      padding: 0.8rem 3rem;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 0.8rem;
+      border: 0.2rem solid @color-black;
+      transition: @transition-primary;
+
+      &:hover,
+      &:focus {
+        transition: @transition-primary;
+        background: @color-primary;
+      }
+    }
+  }
+
+  > .preview-modal {
+    .sizes((4 * (@size + @gap) - @gap), (4 * (@size + @gap) - @gap));
+    background: @color-black;
+    box-sizing: content-box;
+    transition: @transition-primary;
+    position: absolute;
+    z-index: @z-index-3;
+    opacity: 0;
+
+    > .image-preview {
+      .sizes(100%, 100%);
+      border-radius: 3rem;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &.visible {
+      opacity: 1;
+      transition: @transition-primary;
+    }
+  }
+
+  + .game-description {
+    color: @color-body-background;
+    text-align: center;
+    max-width: 80%;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    margin: 1rem auto 0rem;
+
+    p {
+      margin-top: 0.5rem;
+    }
+
+    .color {
+      color: @color-primary;
+    }
+  }
+}
